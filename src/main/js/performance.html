@@ -1,0 +1,58 @@
+<html>
+<body>
+<script type="text/javascript" src="move.js"></script>
+<script type="text/javascript" src="coordinate.js"></script>
+<script type="text/javascript" src="gamestate.js"></script>
+
+<pre>
+<script type="text/javascript">
+
+var gamesPlayed = 0;
+var solutions = [];
+
+function search(gs, moveStack) {
+    if (gs.pegsRemaining() == 1) {
+//        document.write("Found a winning sequence. Final state:\n");
+//        document.write(gs);
+//        document.write("\n");
+
+        var moveStackCopy = [];
+        for (var i = 0; i < moveStack.length; i++) {
+            moveStackCopy[i] = moveStack[i];
+        }
+        solutions.push(moveStackCopy);
+        
+        gamesPlayed++;
+        
+        return;
+    }
+    
+    var legalMoves = gs.legalMoves();
+    
+    if (legalMoves.length == 0) {
+        gamesPlayed++;
+        return;
+    }
+    
+    for (var i = 0; i < legalMoves.length; i++) {
+    	var m = legalMoves[i];
+        var nextState = gs.applyMove(m);
+        moveStack.push(m);
+        search(nextState, moveStack);
+        moveStack.pop();
+    }
+}
+
+var start = new Date;
+var gs = new GameState(5, new Coordinate(3, 2));
+search(gs, []);
+var end = new Date;
+
+document.write("\nGames played:    " + gamesPlayed);
+document.write("\nSolutions found: " + solutions.length);
+document.write("\nTime elapsed:    " + (end - start) + "ms");
+</script>
+</pre>
+
+</body>
+</html>
