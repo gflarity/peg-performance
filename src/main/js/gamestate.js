@@ -32,6 +32,42 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+//TODO For some reason we can't subclass array, so we'll just add to array for now
+
+
+// Returns true if array contains an object equal to the one given.
+// Comparisons are done using the equals() method of the objects.
+// If the objects don't have equals() methods, this operation fails.
+Array.prototype.contains = function(coord) {
+    var len = this.length;
+    for (var i = 0; i < len; i++) {
+	var coord2 = this[i];
+	if (coord.equals(coord2)) {
+	    return true;
+	}
+    }
+    return false;
+};
+
+
+// Removes the first object equal to the one given, returning true.
+// If no such object exists, returns false and leaves array unmodified.
+// Comparisons are done using the equals() method of the objects.
+// If the objects don't have equals() methods, this operation fails.
+Array.prototype.remove = function(coord) {
+    var len = this.length;
+    for (var i = 0; i < len; i++) {
+	var coord2 = this[i];
+	if (coord.equals(coord2)) {
+	    this.splice(i, 1);
+	    return true;
+	}
+    }
+    return false;
+};
+
+
+
 // to create an empty game state, pass in 0 for row count
 function GameState(rowCount, emptyHole) {
 
@@ -39,38 +75,8 @@ function GameState(rowCount, emptyHole) {
 	
 	// You MUST NOT modify this list or its coordinates
 	// Only intended for internal use.
-	this.occupiedHoles = [];
-
-	// Returns true if array contains an object equal to the one given.
-	// Comparisons are done using the equals() method of the objects.
-	// If the objects don't have equals() methods, this operation fails.
-	this.occupiedHoles.contains = function(coord) {
-		var len = this.length;
-		for (var i = 0; i < len; i++) {
-			var coord2 = this[i];
-			if (coord.equals(coord2)) {
-				return true;
-			}
-		}
-		return false;
-	};
-
-	// Removes the first object equal to the one given, returning true.
-	// If no such object exists, returns false and leaves array unmodified.
-	// Comparisons are done using the equals() method of the objects.
-	// If the objects don't have equals() methods, this operation fails.
-	this.occupiedHoles.remove = function(coord) {
-		var len = this.length;
-		for (var i = 0; i < len; i++) {
-			var coord2 = this[i];
-			if (coord.equals(coord2)) {
-				this.splice(i, 1);
-				return true;
-			}
-		}
-		return false;
-	};
-
+	this.occupiedHoles = new Array();
+	
 	// top-secret constructor overload:
 	// if rowCount is actually a game state and emptyHole is a move,
 	// then apply the move
