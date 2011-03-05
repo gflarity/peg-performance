@@ -33,6 +33,7 @@
 #include <stdio.h>
 #include <sys/time.h>
 
+#include "memory.h"
 #include "alist.h"
 #include "coordinate.h"
 #include "gamestate.h"
@@ -47,8 +48,8 @@ static struct timeval endTime;
 
 static void search(gamestate_t *gs, alist_t *moveStack) {
 	if (gamestate_pegs_remaining(gs) == 1) {
-		printf("Found a winning sequence. Final state:\n");
-		gamestate_print(gs);
+		//printf("Found a winning sequence. Final state:\n");
+		//gamestate_print(gs);
 		
 		alist_t *solution = alist_new_copy(moveStack);
 		alist_add(solutions, solution);
@@ -97,7 +98,7 @@ static void run() {
 	mem_release(emptyHole);
 	emptyHole = NULL;
 	
-	gamestate_t *moveStack = alist_new();
+	alist_t *moveStack = alist_new();
 	search(gs, moveStack);
 	
 	int solutionCount = solutions->size;

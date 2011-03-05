@@ -46,7 +46,7 @@ static void move_free(move_t *m) {
 }
 
 move_t *move_new(coord_t *from, coord_t *jumped, coord_t *to) {
-	move_t *m = mem_alloc(sizeof(move_t), move_free, "move");
+	move_t *m = mem_alloc(sizeof(move_t), (void (*)(void*)) move_free, "move");
 
 	m->from = from;
 	mem_retain(from);

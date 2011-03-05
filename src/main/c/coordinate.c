@@ -44,7 +44,7 @@ static void coord_free(coord_t *c) {
 }
 
 coord_t *coord_new(int row, int hole) {
-	coord_t *c = mem_alloc(sizeof(coord_t), coord_free, "coord");
+	coord_t *c = mem_alloc(sizeof(coord_t), (void (*)(void*)) coord_free, "coord");
 	if (c == NULL) {
 		perror("Failed to allocate coordinate");
 		exit(1);

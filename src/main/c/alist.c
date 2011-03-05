@@ -66,7 +66,7 @@ alist_t *alist_new() {
 }
 
 alist_t *alist_new_sized(int initial_capacity) {
-	alist_t *alist = mem_alloc(sizeof(alist_t), alist_free, "alist");
+	alist_t *alist = mem_alloc(sizeof(alist_t), (void (*)(void*)) alist_free, "alist");
 	
 	alist->capacity = 0;
 	alist->size = 0;
@@ -78,7 +78,7 @@ alist_t *alist_new_sized(int initial_capacity) {
 }
 
 alist_t *alist_new_copy(alist_t *src) {
-	alist_t *alist = mem_alloc(sizeof(alist_t), alist_free, "alist_copy");
+	alist_t *alist = mem_alloc(sizeof(alist_t), (void (*)(void*)) alist_free, "alist_copy");
 	
 	alist->capacity = 0;
 	alist->size = src->size;
