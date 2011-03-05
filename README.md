@@ -3,7 +3,10 @@ This repository contains the source code for solving the 15-Hole Peg Soltaire ga
 
 *Spoiler alert*
 
-His results showed that Java under the HotSpot VM is faster than C, which is considerably faster than everything else. Jonathan recently ran his tests again and I was excited to hear that javascript/Chrome/V8 performance has improved considerably in the last year.  Namely, it was 17x slower than Java/HotSpot and therefore faster than everything else except C and Java/HotSpot. My goal is thus to modify the source so it's simple to run the JavaScript source under node.js, then track the results with each release of node.js over time. My hypothesis is that the performance of JavaScript/nodejs/V8 is going to reach the performance of Java on the HotSpot VM and as a result eclipse the performance of C. 
+His results showed that Java under the HotSpot VM is faster than everything including C. What interests me the most is that JavaScript under V8 comes in second once you use proper prototypical inherentence. That's right, Java > JavaScript < C for this test. 
+
+Of course there are caveats. The C code provided by the project being reviewed follows an Object Oriented style. It is certainly possible to optimize this code further using a more procedural style with less memory allocation. But then this style of coding should be adapted to the other languages presented as well. Further more I'd argue that maintaining code written in this matter difficult and expensive. Regardless, I whole heartedly encourge you submit pull requests with these new versions in separate directories based on the style/technique used.
+
 
 #License
 BSD
