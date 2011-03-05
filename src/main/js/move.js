@@ -33,11 +33,13 @@
  */
 
 function Move(from, jumped, to) {
+    this.from = from, this.jumped = jumped, this.to = to;
 	
-	this.getFrom = function() { return from; }
-	this.getJumped = function() { return jumped; }
-	this.getTo = function() { return to; }
-	this.toString = function() {
-        return from + " -> " + jumped + " -> " + to;
-	}
 };
+Move.prototype.getFrom = function() { return this.from; };
+Move.prototype.getJumped = function() { return this.jumped; };
+Move.prototype.getTo = function() { return this.to; };
+Move.prototype.toString = function() {
+    return this.from + " -> " + this.jumped + " -> " + this.to;
+}; 
+

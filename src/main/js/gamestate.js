@@ -116,55 +116,59 @@ function GameState(rowCount, emptyHole) {
 		}
 	}
 
-	/**
-	 * Creates a new game state from this one, with the given move applied.
-	 */
-	this.applyMove = function(applyMe) {
-		var afterMove = new GameState(this, applyMe);
-//		console.log("afterMove=" + afterMove);
-//		console.log("afterMove.occupiedHoles=" + afterMove.occupiedHoles);
-//		console.log("afterMove.pegsRemaining=" + afterMove.pegsRemaining());
-		return afterMove;
-	}
-	
-	this.legalMoves = function() {
-		var legalMoves = [];
-		var ohLen = this.occupiedHoles.length;
-		for (var i = 0; i < ohLen; i++) {
-			var c = this.occupiedHoles[i];
-			var possibleMoves = c.possibleMoves(this.rowCount);
-			var pmLen = possibleMoves.length;
-			for (var j = 0; j < pmLen; j++) {
+};
+
+
+/**
+ * Creates a new game state from this one, with the given move applied.
+ */
+GameState.prototype.applyMove = function(applyMe) {
+    var afterMove = new GameState(this, applyMe);
+    //		console.log("afterMove=" + afterMove);
+    //		console.log("afterMove.occupiedHoles=" + afterMove.occupiedHoles);
+    //		console.log("afterMove.pegsRemaining=" + afterMove.pegsRemaining());
+    return afterMove;
+}
+    
+
+GameState.prototype.legalMoves = function() {
+    var legalMoves = [];
+    var ohLen = this.occupiedHoles.length;
+    for (var i = 0; i < ohLen; i++) {
+	var c = this.occupiedHoles[i];
+	var possibleMoves = c.possibleMoves(this.rowCount);
+	var pmLen = possibleMoves.length;
+	for (var j = 0; j < pmLen; j++) {
 				var m = possibleMoves[j];
 				if (this.occupiedHoles.contains(m.getJumped()) && !this.occupiedHoles.contains(m.getTo())) {
-					legalMoves.push(m);
+				    legalMoves.push(m);
 				}
-			}
-		}
-		return legalMoves;
 	}
+    }
+    return legalMoves;
+};
+  
+GameState.prototype.pegsRemaining = function() {
+    return this.occupiedHoles.length;
+};
 	
-	this.pegsRemaining = function() {
-		return this.occupiedHoles.length;
+GameState.prototype.toString = function() {
+    var sb = new Array;
+    sb.push("Game with " + this.rowCount + " rows and " + this.pegsRemaining() + " pegs:\n");
+    for (var row = 1; row <= this.rowCount; row++) {
+	var indent = this.rowCount - row;
+	for (var i = 0; i < indent; i++) {
+	    sb.push(" ");
 	}
-	
-	this.toString = function() {
-		var sb = new Array;
-        sb.push("Game with " + this.rowCount + " rows and " + this.pegsRemaining() + " pegs:\n");
-        for (var row = 1; row <= this.rowCount; row++) {
-            var indent = this.rowCount - row;
-            for (var i = 0; i < indent; i++) {
-                sb.push(" ");
-            }
-            for (var hole = 1; hole <= row; hole++) {
+	for (var hole = 1; hole <= row; hole++) {
                 if (this.occupiedHoles.contains(new Coordinate(row, hole))) {
                     sb.push(" *");
                 } else {
                     sb.push(" O");
                 }
-            }
-            sb.push("\n");
-        }
-        return sb.join("");
+	}
+	sb.push("\n");
     }
-}
+    return sb.join("");
+};
+    
