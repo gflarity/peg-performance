@@ -40,88 +40,98 @@ function Coordinate(row, hole) {
 	if (hole > row) {
 		throw new IllegalArgumentException("Illegal hole number: " + hole + " on row " + row);
 	}
-
-	this.getRow = function() { return row; }
-	this.getHole = function() { return hole; }
 	
-	this.possibleMoves = function(rowCount) {
-		var moves = [];
+	this.row = row;
+	this.hole = hole;
 
-		// upward (needs at least 2 rows above)
-		if (row >= 3) {
-
-			// up-left
-			if (hole >= 3) {
-				moves.push(new Move(
+	
+};
+Coordinate.prototype.getRow = function() { return this.row; };
+Coordinate.prototype.getHole = function() { return this.hole; };
+Coordinate.prototype.possibleMoves = function(rowCount) {
+    var moves = [];
+    
+    var row = this.row, hole = this.hole;
+    
+    // upward (needs at least 2 rows above)
+    if (row >= 3) {
+	
+	// up-left
+	if (hole >= 3) {
+	    moves.push(new Move(
 						this,
 						new Coordinate(row - 1, hole - 1),
 						new Coordinate(row - 2, hole - 2)));
-			}
-
-			// up-right
-			if (row - hole >= 2) {
-				moves.push(new Move(
-						this,
-						new Coordinate(row - 1, hole),
-						new Coordinate(row - 2, hole)));
-			}
-		}
-
-		// leftward (needs at least 2 pegs to the left)
-		if (hole >= 3) {
-			moves.push(new Move(
-					this,
-					new Coordinate(row, hole - 1),
-					new Coordinate(row, hole - 2)));
-		}
-
-		// rightward (needs at least 2 holes to the right)
-		if (row - hole >= 2) {
-			moves.push(new Move(
-					this,
-					new Coordinate(row, hole + 1),
-					new Coordinate(row, hole + 2)));
-		}
-
-		// downward (needs at least 2 rows below)
-		if (rowCount - row >= 2) {
-
-			// down-left (always possible when there are at least 2 rows below)
-			moves.push(new Move(
-					this,
-					new Coordinate(row + 1, hole),
-					new Coordinate(row + 2, hole)));
-
-			// down-right (always possible when there are at least 2 rows below)
-			moves.push(new Move(
-					this,
-					new Coordinate(row + 1, hole + 1),
-					new Coordinate(row + 2, hole + 2)));
-		}
-
-		return moves;
-	}
-
-	this.toString = function() {
-        return "r" + row + "h" + hole;
 	}
 	
-	this.equals = function(obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (this.prototype != obj.prototype)
-            return false;
-        
-        if (obj.getHole == undefined) {
-        	throw new Error("The given object doesn't look like a coordinate");
-        }
-        
-        if (hole != obj.getHole())
-            return false;
-        if (row != obj.getRow())
-            return false;
-        return true;
+	// up-right
+	if (row - hole >= 2) {
+	    moves.push(new Move(
+				this,
+				new Coordinate(row - 1, hole),
+				new Coordinate(row - 2, hole)));
 	}
+    }
+    
+    // leftward (needs at least 2 pegs to the left)
+    if (hole >= 3) {
+			moves.push(new Move(
+					    this,
+					    new Coordinate(row, hole - 1),
+					    new Coordinate(row, hole - 2)));
+    }
+    
+    // rightward (needs at least 2 holes to the right)
+    if (row - hole >= 2) {
+	moves.push(new Move(
+			    this,
+			    new Coordinate(row, hole + 1),
+			    new Coordinate(row, hole + 2)));
+    }
+    
+    // downward (needs at least 2 rows below)
+    if (rowCount - row >= 2) {
+	
+	// down-left (always possible when there are at least 2 rows below)
+	moves.push(new Move(
+			    this,
+			    new Coordinate(row + 1, hole),
+			    new Coordinate(row + 2, hole)));
+	
+	// down-right (always possible when there are at least 2 rows below)
+	moves.push(new Move(
+			    this,
+			    new Coordinate(row + 1, hole + 1),
+			    new Coordinate(row + 2, hole + 2)));
+    }
+    
+    return moves;
 };
+
+Coordinate.prototype.toString = function() {
+    return "r" + this.row + "h" + this.hole;
+};
+    
+Coordinate.prototype.equals = function(obj) {
+    var hole = this.hole, row = this.row;
+
+    if (this == obj)
+	return true;
+    if (obj == null)
+	return false;
+	    if (this.prototype != obj.prototype)
+		return false;
+    
+    if (obj.getHole == undefined) {
+	throw new Error("The given object doesn't look like a coordinate");
+    }
+    
+    if (hole != obj.getHole())
+	return false;
+    if (row != obj.getRow())
+	return false;
+    return true;
+};
+    
+    
+	    
