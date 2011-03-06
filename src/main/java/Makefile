@@ -8,4 +8,5 @@ all:
 
 clean:  
 	-rm -rf ca/tjug/talks/performance/*class
-	-rm ./performance
+	-rm ./performance result
+

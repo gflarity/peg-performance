@@ -6,8 +6,8 @@ do
 	then
 		echo "Running $dir tests..."
 		cd $dir
-		./performance > result
-		for test_run in {1..9}
+		./version > result
+		for test_run in {1..10}
 		do
 			./performance >> result
 		done

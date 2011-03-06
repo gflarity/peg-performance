@@ -3,4 +3,4 @@ all:
 	echo -e "#!/bin/bash\nnode nodejs.js" > ./performance
 	chmod +x ./performance
 clean:
-	-rm nodejs.js
+	-rm nodejs.js result
