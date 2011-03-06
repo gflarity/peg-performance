@@ -24,10 +24,11 @@ function plot( results ) {
 	    'axes':{
 		xaxis:{
 		    renderer:$.jqplot.CategoryAxisRenderer
+
 		},
-		yaaxis:{
+		yaxis:{
 		    label:'Time (ms)',
-		    autoscale: true
+		    min: 0
 		}
 	    }
 	});

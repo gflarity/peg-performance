@@ -17,4 +17,4 @@ clean:
 	make -C ruby clean
 
 test: all
-	test
+	./test
