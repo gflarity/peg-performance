@@ -14,3 +14,5 @@ do
 		cd ..
 	fi
 done
+
+node gen_report.js
