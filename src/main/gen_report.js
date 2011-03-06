@@ -1,5 +1,6 @@
 var child_process = require('child_process');
 var fs = require('fs');
+var path = require('path');
 var dir_contents = fs.readdirSync( './' );
 
 sum = function( array ) {
@@ -25,9 +26,18 @@ function process_dir( dir )
     //parse the result files
     var times = [];
     var cwd = process.cwd();
-    var results = fs.readFileSync( dir + '/result', encoding = 'utf8'  );
+    
+    var result_file =  dir + '/result';
+
+    if ( ! path.existsSync( result_file ) ) {
+	return null; 
+    }
+	
+    var results = fs.readFileSync( result_file, encoding = 'utf8'  );
     var lang_rt = results.split('\n')[0];
+    var lang = lang_rt.split( ' - ' )[0];
     var regex = /\s(\d+)ms/g;
+
     var matches = results.match( regex );
     if ( matches ) {
 	//	console.log(matches);
@@ -46,23 +56,30 @@ function process_dir( dir )
     times = times.slice(1, -1 );
     
 
-    return { lang_rt : lang_rt, times : times, avg : avg(times) };
+    return { lang_rt : lang_rt, times : times, avg : avg(times), lang : lang  };
 	
 }
 
-
-var dirs = [];
+var results = [];
 for ( var index in dir_contents ) {
     
     var dir_name = dir_contents[index];
     var stats = fs.lstatSync(dir_name);
     
     if ( stats.isDirectory() ) {
-	dirs.push(dir_name);
 	var result = process_dir( dir_name );
-	console.log(result);
+
+	if ( result != null ) {
+	    results.push(result);
+	}
     }
 
 } 
+	
 
+results.sort( function( a, b ) {
+	return a.avg - b.avg;
+    });
+
+fs.writeFileSync( '.report/results.js', 'var results = ' +  JSON.stringify( results ), encoding='utf8' );
 
