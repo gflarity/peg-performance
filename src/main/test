@@ -1,0 +1,16 @@
+#!/bin/bash
+
+for dir in *
+do
+	if [ -d $dir ]
+	then
+		echo "Running $dir tests..."
+		cd $dir
+		./performance > result
+		for test_run in {1..9}
+		do
+			./performance >> result
+		done
+		cd ..
+	fi
+done

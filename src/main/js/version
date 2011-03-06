@@ -1,0 +1,4 @@
+#!/bin/bash
+version=`node -v | head -1`
+echo "JavaScript - node.js $version"
+

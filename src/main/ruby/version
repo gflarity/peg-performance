@@ -1,0 +1,3 @@
+#!/bin/bash
+version=`ruby --version 2>&1 | tail -1`
+echo -e "Ruby - $version"

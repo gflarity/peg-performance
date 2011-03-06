@@ -15,3 +15,6 @@ clean:
 	make -C php clean
 	make -C python clean
 	make -C ruby clean
+
+test: all
+	node tests.js

@@ -1,0 +1,4 @@
+#!/bin/bash
+version=`mono --version | head -1`
+echo "C# - $version"
+

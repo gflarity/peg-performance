@@ -1,0 +1,4 @@
+#!/bin/bash
+version=`java -version  2>&1 | tail -1`
+echo "Java - $version"
+
