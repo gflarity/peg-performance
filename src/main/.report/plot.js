@@ -10,27 +10,35 @@ function plot( results ) {
 
 	var line = [ result['avg'] ];
 	lines.push(line);
-
-	var label = { renderer:$.jqplot.BarRenderer, label : result['lang_rt'] } ;
-	series.push(label);
+	var serie = { 
+	    label : result['lang_rt'],
+	    pointLabels:{
+		labels:['fourteen' ]
+	    }
+	};
+	series.push(serie);
 
     }
 
     line1 = [1,4,9, 16];
     line2 = [25, 12.5, 6.25, 3.125];
+
     plot1 = $.jqplot('chart1', lines, {
-	    'legend':{ 'show':true, 'location':'nw'},title:'Performance Comparion - 15-Hole Peg Solitaire - Using Object Oriented Style',
-	    'series': series,
-	    'axes':{
+	    'legend':{ 
+		'show':true, 
+		'location':'nw'},
+	    title:'Performance Comparion - 15-Hole Peg Solitaire - Using Object Oriented Style',
+	    seriesDefaults: {renderer: $.jqplot.BarRenderer},
+	    series: series,	    
+	    axes:{
 		xaxis:{
 		    renderer:$.jqplot.CategoryAxisRenderer
-
 		},
 		yaxis:{
 		    label:'Time (ms)',
 		    min: 0
 		}
-	    }
+	    },
 	});
     
 }
