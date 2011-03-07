@@ -56,7 +56,7 @@ function process_dir( dir )
     times = times.slice(1, -1 );
     
 
-    return { lang_rt : lang_rt + ' - ' + avg(times), times : times, avg : avg(times), lang : lang  };
+    return { lang_rt : lang_rt, times : times, avg : avg(times), lang : lang  };
 	
 }
 
