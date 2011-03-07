@@ -7,11 +7,11 @@ function plot( results ) {
     var ticks = [];
     for (var index in results ) {	
 	var result = results[index];
-
+	var label = result['lang_rt'] + ' - ' +  result['avg'] + 'ms';
 	var line = [ result['avg'] ];
 	lines.push(line);
 	var serie = { 
-	    label : result['lang_rt'],
+	    label : label,
 	    pointLabels:{
 		labels:['fourteen' ]
 	    }
