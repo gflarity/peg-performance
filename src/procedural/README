@@ -1,0 +1,9 @@
+The solution in full does all 137846 games. The solution in symm takes advantage
+of symmetry in the initial game state to half the number of games to run.
+Notes on implementation are in the source.
+
+The C solution in main takes ~1266ms
+This full solution takes       ~18ms
+This symm solution takes       ~12ms
+With optimisations off, using gcc (Ubuntu/Linaro 4.6.1-9ubuntu3) 4.6.1 and
+64-bit linux on an i5-2500k.
