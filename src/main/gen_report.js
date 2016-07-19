@@ -20,6 +20,18 @@ avg = function(array) {
 
 };
 
+function file_exists( path ) {
+  if (path.existsSync) {
+    return path.existsSync( result_file );
+  } else {
+    try {
+      return fs.statSync(path).isFile();
+    } catch (err) {
+      return false;
+    }
+  }
+}
+
 function process_dir( dir )
 {
     
@@ -29,7 +41,7 @@ function process_dir( dir )
     
     var result_file =  dir + '/result';
 
-    if ( ! path.existsSync( result_file ) ) {
+    if ( ! file_exists( result_file ) ) {
 	return null; 
     }
 	
